@@ -4,22 +4,27 @@ Postman → Download from postman.com (to test APIs later)
 Git → Download from git-scm.com
 
 # 1. Create the main project folder
+
 mkdir blog-platform
 cd blog-platform
 
 # 2. Create the server folder
+
 mkdir server
 cd server
 
 # 3. Initialize Node.js in server folder
+
 npm init -y
 
     npm init -y creates a package.json file.
 
 # 4. Go back to root folder
+
 cd ..
 
 # 5. Create React app using Vite (faster than create-react-app)
+
 npm create vite@latest client
 cd client
 npm install
@@ -27,21 +32,26 @@ npm install
 - Install All Backend Packages
 
 # Go into server folder
+
 cd ../server
 
 # Install main packages
+
 npm install express mongoose bcryptjs jsonwebtoken dotenv cors multer cloudinary
 
 # Install nodemon as a dev dependency
+
 npm install --save-dev nodemon
 
     What is nodemon? Normally when you change your server code, you have to manually stop and restart the server. nodemon watches your files and automatically restarts the server when you save. It's only needed during development, so we install it as --save-dev.
 
-# Now open server/package.json and update the scripts section to look like this:
+# Now open server/package.json and update the scripts section to look like this
+
     "scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
-        },
+
+"start": "node server.js",
+"dev": "nodemon server.js"
+},
 
     Also add this line to enable modern import/export syntax:
         json"type": "module",
@@ -51,17 +61,64 @@ npm install --save-dev nodemon
 - Install All Frontend Packages
 
 # Go into client folder
+
 cd ../client
 
 # Install frontend packages
-npm install axios react-router-dom react-hot-toast react-quill
+
+npm install axios react-router-dom tailwindcss @tailwindcss/vite @tiptap/react @tiptap/pm @tiptap/starter-kit
 
     Axios is used to send requests to a server or API.
     Routing means switching between pages without reloading the website.
-    react-hot-toast is used to show small popup messages (notifications).
+    tailwind css for styling
     tiptap is a rich text editor. It allows users to write formatted content like in Word / Google Docs.
 
-# Now let's create all the folders and files we'll need. Run these commands from inside the server/ folder:
+    Why 3 Tiptap packages?
+
+        @tiptap/react → The main Tiptap package that connects with React
+        @tiptap/pm → This is ProseMirror, the engine that powers Tiptap under the hood. Tiptap is built on top of it, so it needs this to work
+        @tiptap/starter-kit → A bundle of the most common text formatting features like Bold, Italic, Headings, Lists, Blockquote etc. Instead of installing each feature separately, starter-kit gives you all the basics in one package
+
+    * Setup Path Alias (Required for Shadcn) :
+
+        Shadcn needs a path alias so it can import files using @/ instead of long relative paths like ../../components.
+         Instead of writing import Button from '../../components/ui/Button' you can write import Button from '@/components/ui/Button' — much cleaner!
+
+        Install the path package: npm install -D @types/node
+
+        Update vite.config.js with :
+            resolve: {
+            alias: {
+            "@": path.resolve(__dirname, "./src"), // @ now points to the src folder
+            },
+            },
+
+        Now create a jsconfig.json file in the client/ folder: touch jsconfig.json
+
+        and update it with :
+            {
+            "compilerOptions": {
+                "baseUrl": ".",
+                "paths": {
+                "@/*": ["./src/*"]
+                }
+            }
+            }
+        
+        Now Initialize Shadcn/ui, run the Shadcn setup command : npx shadcn@latest init
+            This command automatically sets up everything Shadcn needs inside your project.
+
+            *npx - Runs a package without installing it globally
+
+        Install Shadcn Components like :
+            npx shadcn@latest add button
+            npx shadcn@latest add input
+            etc...
+
+            * each command copies the component code into your src/components/ui/ folder. Open that folder in VS Code and you'll see the actual code for each component. You can edit it however you want!
+
+
+# Now let's create all the folders and files we'll need. Run these commands from inside the server/ folder
 
     # Create all folders
     mkdir models routes controllers middleware config
@@ -90,7 +147,6 @@ npm install axios react-router-dom react-hot-toast react-quill
     # Create config file
     touch config/db.js
 
-
 # Setup MongoDB Atlas (Free Cloud Database)
 
     Instead of installing MongoDB on your computer, we'll use MongoDB Atlas — a free cloud database.
@@ -112,13 +168,25 @@ npm install axios react-router-dom react-hot-toast react-quill
     mongodb+srv://yourUsername:yourPassword@cluster0.xxxxx.mongodb.net/
 
 # Setup the .env File
+
 The .env file stores your secret keys. This file should NEVER be pushed to GitHub.
 Open server/.env and add this:
-    envPORT=5000
-    MONGO_URI=mongodb+srv://yourUsername:yourPassword@cluster0.xxxxx.mongodb.net/blogplatform
-    JWT_SECRET=makethisalongrandombunchofcharacters123456
+envPORT=5000
+MONGO_URI=mongodb+srv://yourUsername:yourPassword@cluster0.xxxxx.mongodb.net/blogplatform
+JWT_SECRET=makethisalongrandombunchofcharacters123456
 
- # Use ONE .gitignore in the root of the project.
+# Use ONE .gitignore in the root of the project
 
 Git automatically ignores files inside both client and server if you list them there.
 
+# Setup config/db.js for Database Connection and server.js for The Main Server File
+
+# What We've Done in Phase 1
+
+    ✅ Created project folder structure
+    ✅ Initialized Node.js backend
+    ✅ Created React frontend with Vite
+    ✅ Installed all packages
+    ✅ Connected to MongoDB Atlas
+    ✅ Setup .env for secret keys
+    ✅ Server is running successfully

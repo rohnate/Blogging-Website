@@ -4,7 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import dns from 'dns'
 
-// changing DNS (because this is the reason why i am not able to connect to mongoDb though node)
+// changing DNS (because dns is the reason why i am not able to connect to mongoDb through node)
 dns.setServers(["1.1.1.1","8.8.8.8"])
 
 // Load environment variables from .env file

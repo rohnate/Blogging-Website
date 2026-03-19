@@ -1,0 +1,19 @@
+// jsconfig.json is used in JavaScript projects (especially React / Node) to help your editor understand your project better.
+// Think of jsconfig.json as: “Instructions for VS Code on how to understand my project”
+
+/* why we use jsconfig
+    1. Clean imports (very useful) : No "../../../" mess
+    2. Auto-import works better : Faster coding
+    3. Path alias (shortcut) : Shortcuts like @components
+    4. Better error detection
+*/
+
+{
+  "compilerOptions": {
+    "baseUrl": ".", // Now imports start from "." i.e current root folder
+    "paths": {
+      // Custom shortcuts
+      "@/*": ["./src/*"] // shortcut naming : @ = src
+    }
+  }
+}
