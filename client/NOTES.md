@@ -190,3 +190,25 @@ Git automatically ignores files inside both client and server if you list them t
     ✅ Connected to MongoDB Atlas
     ✅ Setup .env for secret keys
     ✅ Server is running successfully
+
+# Phase 2 : Authentication System
+
+    full flow in english :
+        REGISTER:
+        User fills form → React sends data to Express → 
+        Express hashes password → Saves user in MongoDB → 
+        Sends back a JWT token → React stores token
+
+        LOGIN:
+        User fills form → React sends data to Express → 
+        Express checks password → If correct, sends JWT token → 
+        React stores token → User is now "logged in"
+
+        PROTECTED ROUTE:
+        User requests something private → React sends JWT token → 
+        Express middleware checks token → If valid, allow access → 
+        If invalid/missing, block access
+
+    - IMP to know the request flow : Request → Middleware → Controller → Response   
+
+    Step 1 — Build the User Model
