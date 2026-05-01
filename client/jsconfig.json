@@ -10,7 +10,7 @@
 
 {
   "compilerOptions": {
-    "baseUrl": ".", // Now imports start from "." i.e current root folder
+    "baseUrl": ".", // Now imports start from "." i.e current root folder but this is not relevent now
     "paths": {
       // Custom shortcuts
       "@/*": ["./src/*"] // shortcut naming : @ = src

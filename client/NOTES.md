@@ -73,7 +73,28 @@ npm install axios react-router-dom tailwindcss @tailwindcss/vite @tiptap/react @
     tailwind css for styling
     tiptap is a rich text editor. It allows users to write formatted content like in Word / Google Docs.
 
-    Why 3 Tiptap packages?
+    * Tialwind setup :
+
+        - open client/vite.config.js and update it to look like this:
+
+            import { defineConfig } from 'vite'
+            import react from '@vitejs/plugin-react'
+            import tailwindcss from '@tailwindcss/vite'
+
+            export default defineConfig({
+            plugins: [
+                react(),
+                tailwindcss(), // Add this line     <--------------
+            ],
+            })
+
+        - open client/src/index.css and replace everything in it with just this one line:
+
+            @import "tailwindcss";
+
+            (This one line loads the entire Tailwind library. The new Tailwind v4 (latest) doesn't need a config file anymore.)
+
+    * Why 3 Tiptap packages?
 
         @tiptap/react → The main Tiptap package that connects with React
         @tiptap/pm → This is ProseMirror, the engine that powers Tiptap under the hood. Tiptap is built on top of it, so it needs this to work
